@@ -14,6 +14,7 @@ const aether = {
     { title: "Vanquish",                          artist: "Darling in the FranXX OST",     src: "assets/audio/vanquish.mp3" },
     { title: "CODE:002",                          artist: "Darling in the FranXX OST",     src: "assets/audio/code-002.mp3" },
     { title: "Kokushibo Theme",                   artist: "Demon Slayer: Infinity Castle", src: "assets/audio/kokushibo.mp3" },
+    { title: "Kokushibo Theme (Epic Version)",     artist: "Demon Slayer Season 3 OST",     src: "assets/audio/kokushibo-epic.mp3" },
   ],
 
   // -- DESIGN: weapon stat sheet --
@@ -98,7 +99,7 @@ function render() {
     <li class="track" data-i="${i}">
       <button class="track-btn" aria-label="Play ${esc(t.title)}">
         <svg class="t-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        <svg class="t-pause" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        <svg class="t-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
       </button>
       <span class="track-meta"><span class="track-title">${esc(t.title)}</span><span class="track-artist">${esc(t.artist || "")}</span></span>
       <span class="track-eq" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -193,20 +194,30 @@ function initPlayer() {
   const toggle = $("#playerToggle");
   const titleEl = $("#playerTitle");
   const seek = $("#playerSeek");
+  const vol = $("#playerVol");
   const curT = $("#playerCur");
   const durT = $("#playerDur");
+
+  // volume (restored from last visit when available)
+  let saved = 0.8;
+  try { const s = localStorage.getItem("aether-vol"); if (s !== null) saved = +s; } catch (e) {}
+  audio.volume = saved;
+  if (vol) {
+    vol.value = Math.round(saved * 100);
+    vol.addEventListener("input", () => {
+      audio.volume = vol.value / 100;
+      try { localStorage.setItem("aether-vol", String(audio.volume)); } catch (e) {}
+    });
+  }
   const fmt = (s) => (isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00");
 
   function paintState() {
     const playing = !audio.paused && cur >= 0;
-    $(".ic-play", toggle).hidden = playing;
-    $(".ic-pause", toggle).hidden = !playing;
+    toggle.classList.toggle("is-playing", playing);
     $$("#tracklist .track").forEach((li) => {
       const on = +li.dataset.i === cur;
       li.classList.toggle("is-current", on);
       li.classList.toggle("is-playing", on && playing);
-      $(".t-play", li).hidden = on && playing;
-      $(".t-pause", li).hidden = !(on && playing);
     });
   }
 
@@ -370,6 +381,55 @@ function initEmbers() {
   resize(); addEventListener("resize", resize); frame();
 }
 
+/* ------------------------- UI sound effects ------------------------- */
+const SFX = (() => {
+  let ctx, master;
+  function ensure() {
+    if (!ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      ctx = new AC();
+      master = ctx.createGain();
+      master.gain.value = 0.5;         // keep everything gentle
+      master.connect(ctx.destination);
+    }
+    if (ctx.state === "suspended") ctx.resume();
+    return ctx;
+  }
+  // a soft sine blip with a quick pluck envelope
+  function blip(freq, dur, vol, type = "sine") {
+    const c = ensure(); if (!c) return;
+    const t = c.currentTime;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, t);
+    o.frequency.exponentialRampToValueAtTime(Math.max(60, freq * 0.72), t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g).connect(master);
+    o.start(t); o.stop(t + dur + 0.02);
+  }
+  return {
+    tap() { blip(540, 0.07, 0.12, "triangle"); },                    // subtle click
+    confirm() { blip(720, 0.08, 0.13, "sine"); setTimeout(() => blip(1080, 0.07, 0.07, "sine"), 42); }, // two-note
+    soft() { blip(360, 0.06, 0.08, "sine"); },                       // close / back
+  };
+})();
+
+function initSfx() {
+  const RICH = ".portal, .navlink, .brand, .track, #playerToggle, .person-link";
+  document.addEventListener("click", (e) => {
+    // ignore drags on sliders
+    if (e.target.closest("input[type=range]")) return;
+    const el = e.target.closest("button, a, .track, .portal");
+    if (!el) return;
+    if (el.id === "lbClose") SFX.soft();
+    else if (el.closest(RICH) || el.matches(RICH)) SFX.confirm();
+    else SFX.tap();
+  }, true);
+}
+
 /* ------------------------- boot ------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
   render();
@@ -378,5 +438,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSearch();
   initPlayer();
   initLightbox();
+  initSfx();
   initEmbers();
 });
