@@ -29,7 +29,7 @@ Leave `avatar: ""` to show a lettered placeholder. Add `role: "owner"` for a gol
 Drop files into `assets/img/` and keep these names to replace them in place:
 `hero-home.jpg`, `hero-design.jpg`, `hero-holders.jpg`, `logo-crown.png`,
 `idle.jpg`, `block.jpg`, `parry.jpg`, `ref1.jpg`, `ref2.jpg`, `pose.jpg`,
-`divine.png`, `saffron.png`.
+`divine.png`, `mvalestral.png`.
 
 ## View / host
 Open `index.html` in a browser. To host free: enable **GitHub Pages**

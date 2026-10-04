@@ -16,23 +16,22 @@ const aether = {
 
   // -- DESIGN: weapon stat sheet --
   stats: [
-    { label: "Essence",   value: "Aether / Creation" },
-    { label: "Type",      value: "Custom longsword" },
-    { label: "Rarity",    value: "Exclusive" },
-    { label: "Wielder",   value: "Divine" },
-    { label: "Signature", value: "Parry & Perfect Parry" },
+    { label: "Name",    value: "Aether Sword" },
+    { label: "Type",    value: "Katana" },
+    { label: "Rarity",  value: "Custom" },
+    { label: "Wielder", value: "Divine" },
   ],
 
   // -- HOLDER LIST: developers / contributors --
   contributors: [
-    { name: "Divine",  handle: "@DivineGaming15", reason: "Website + VFX", avatar: "assets/img/divine.png",  role: "owner" },
-    { name: "saffron", handle: "@8holu",          reason: "Website",       avatar: "assets/img/saffron.png" },
+    { name: "Divine",      handle: "@DivineGaming15", reason: "Website + VFX", avatar: "assets/img/divine.png",     role: "owner", profile: "https://www.roblox.com/users/2523725933/profile" },
+    { name: "MValestral",  handle: "",                reason: "Sound Designer", avatar: "assets/img/mvalestral.png",             profile: "https://www.roblox.com/users/2020725177/profile" },
   ],
 
   // -- HOLDER LIST: permanent holders --
   // role: "owner" | "" ; set avatar to an image path or leave "".
   holders: [
-    { name: "Divine", handle: "@DivineGaming15", reason: "Creator & original owner", avatar: "assets/img/divine.png", role: "owner" },
+    { name: "Divine", handle: "@DivineGaming15", reason: "Creator & original owner", avatar: "assets/img/divine.png", role: "owner", profile: "https://www.roblox.com/users/2523725933/profile" },
     { name: "displayname", handle: "@username", reason: "reason", avatar: "" },
     { name: "displayname", handle: "@username", reason: "reason", avatar: "" },
   ],
@@ -69,6 +68,11 @@ function personCard(p, opts = {}) {
   const tag = p.role === "owner" ? `<span class="tag">Owner</span>` : (opts.tag ? `<span class="tag">${esc(opts.tag)}</span>` : "");
   const handle = p.handle ? `<p class="person-handle">${esc(p.handle)}</p>` : "";
   const reason = p.reason ? `<p class="person-reason">${esc(p.reason)}</p>` : "";
+  const profile = p.profile
+    ? `<a class="person-link" href="${esc(p.profile)}" target="_blank" rel="noopener">
+         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><rect x="9" y="9" width="6" height="6"/></svg>
+         Roblox Profile</a>`
+    : "";
   return `
     <article class="person ${opts.black ? "is-black" : ""}" data-role="${esc(p.role || "")}" data-search="${esc((p.name + " " + (p.handle||"") + " " + (p.reason||"")).toLowerCase())}">
       <div class="person-avatar">${avatar}</div>
@@ -76,6 +80,7 @@ function personCard(p, opts = {}) {
       <h4 class="person-name">${esc(p.name)}</h4>
       ${handle}
       ${reason}
+      ${profile}
     </article>`;
 }
 

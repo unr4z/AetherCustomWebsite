@@ -265,6 +265,13 @@ main, .topbar, .site-footer { position: relative; z-index: 1; }
 .person-name { font-weight: 600; font-size: 1rem; margin: 0 0 2px; word-break: break-word; }
 .person-handle { color: var(--lav); font-size: .82rem; margin: 0 0 8px; word-break: break-word; }
 .person-reason { color: var(--soft); font-size: .84rem; font-weight: 300; margin: 0; }
+.person-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+  font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  color: var(--lav); border: 1px solid var(--line-strong); border-radius: 100px; padding: 6px 14px;
+  transition: background .22s ease, color .22s ease;
+}
+.person-link:hover { background: var(--lav); color: #1a1030; }
 .person .tag {
   display: inline-block; font-size: .58rem; letter-spacing: .16em; text-transform: uppercase;
   padding: 3px 10px; border-radius: 100px; border: 1px solid var(--line); color: var(--soft); margin-bottom: 8px;
