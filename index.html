@@ -23,6 +23,7 @@
       <button class="navlink is-active" data-page="home">Home</button>
       <button class="navlink" data-page="design">Design</button>
       <button class="navlink" data-page="holders">Holder List</button>
+      <button class="navlink" data-page="title">Title</button>
       <button class="navlink" data-page="blacklist">Blacklist</button>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
@@ -104,10 +105,16 @@
       </div>
 
       <div class="wrap">
+        <h2 class="band">— The Aether Sword —</h2>
+        <figure class="media media-showcase">
+          <video src="assets/video/sword.mp4" poster="assets/img/poster-sword.jpg" autoplay loop muted playsinline preload="metadata"></video>
+          <figcaption>The blade itself — cut from the essence of creation.</figcaption>
+        </figure>
+
         <h2 class="band">— Animations —</h2>
         <div class="media-2">
-          <figure class="media"><button class="zoom" data-src="assets/img/idle.jpg"><img src="assets/img/idle.jpg" alt="Aether idle animation" loading="lazy"/></button><figcaption>Idle Animation</figcaption></figure>
-          <figure class="media"><button class="zoom" data-src="assets/img/block.jpg"><img src="assets/img/block.jpg" alt="Aether block animation" loading="lazy"/></button><figcaption>Block Animation</figcaption></figure>
+          <figure class="media"><video src="assets/video/idle.mp4" poster="assets/img/poster-idle.jpg" autoplay loop muted playsinline preload="metadata"></video><figcaption>Idle Animation</figcaption></figure>
+          <figure class="media"><video src="assets/video/block.mp4" poster="assets/img/poster-block.jpg" autoplay loop muted playsinline preload="metadata"></video><figcaption>Block Animation</figcaption></figure>
         </div>
 
         <div class="split">
@@ -130,7 +137,7 @@
             <p class="muted pm-label">Pose Musics</p>
             <ul class="pose-music" id="pose-music"><!-- rendered --></ul>
           </div>
-          <figure class="media media-wide"><button class="zoom" data-src="assets/img/pose.jpg"><img src="assets/img/pose.jpg" alt="Pose animation" loading="lazy"/></button></figure>
+          <figure class="media media-wide"><video src="assets/video/pose.mp4" poster="assets/img/poster-pose.jpg" autoplay loop muted playsinline preload="metadata"></video></figure>
         </div>
 
         <h2 class="band">— Informations —</h2>
@@ -164,6 +171,48 @@
         <div class="people-grid" id="temp-holders"><!-- rendered --></div>
 
         <p class="empty" id="search-empty" hidden>No one matches that search.</p>
+      </div>
+    </section>
+
+    <!-- ============ TITLE ============ -->
+    <section class="page" id="page-title" hidden>
+      <div class="hero hero-royal">
+        <div class="hero-inner">
+          <p class="hero-kicker">Honorary Title</p>
+          <h1 class="hero-title">Title</h1>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="title-crest">
+          <div class="crest-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 16 1.5-9L10 11l2-6 2 6 3.5-4L19 16Z"/><path d="M5 16h14v3H5z"/></svg>
+          </div>
+          <p class="eyebrow-lav">The Title of Aether</p>
+          <h2 class="title-name">Paragon of Purity</h2>
+          <p class="title-desc">
+            A mark of distinction tied to the Aether Sword — carried by those who
+            hold the blade, and those who helped bring it into being.
+          </p>
+        </div>
+
+        <h2 class="band">— How it's earned —</h2>
+        <div class="earn-grid">
+          <article class="earn">
+            <span class="earn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l3-3 6 3 6-3 3 3-4 5 4 5-3 3-6-3-6 3-3-3 4-5Z"/></svg>
+            </span>
+            <h3>Own a copy</h3>
+            <p>Hold a copy of the custom <strong>Aether Sword</strong> and the title is yours.</p>
+          </article>
+          <article class="earn">
+            <span class="earn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18v3h3l6.4-6.4a4 4 0 0 0 5.3-5.4l-2.6 2.6-2.1-.5-.5-2.1 2.6-2.6Z"/></svg>
+            </span>
+            <h3>Contribute</h3>
+            <p>Help create the custom — design, VFX, sound, or more — to earn it through craft.</p>
+          </article>
+        </div>
       </div>
     </section>
 

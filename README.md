@@ -4,14 +4,15 @@ A single-page showcase for **Aether**, a custom weapon in the Roblox game *Kizuk
 Rebuilt from the original site's purple identity with full-bleed hero art,
 elegant serif titles, an ember background, image lightbox, and holder search.
 
-Pages (top nav): **Home · Design · Holder List · Blacklist**
+Pages (top nav): **Home · Design · Holder List · Title · Blacklist**
 
 ## Files
 ```
-index.html             # structure (all four pages)
+index.html             # structure (all pages)
 assets/css/style.css   # styling — purple / "creation" theme
 assets/js/main.js      # content data + interactions
-assets/img/            # hero backgrounds, weapon VFX, references, avatars
+assets/img/            # hero backgrounds, references, avatars, video posters
+assets/video/          # idle / block / pose / sword animation clips
 ```
 
 ## Edit the content
