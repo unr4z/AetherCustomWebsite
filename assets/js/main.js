@@ -7,11 +7,13 @@
    ========================================================= */
 
 const aether = {
-  // -- DESIGN: pose music links (YouTube) --
+  // -- DESIGN: pose music (click to play) --
   poseMusic: [
-    "https://www.youtube.com/watch?v=bJieaH23524",
-    "https://www.youtube.com/watch?v=G_JfKOjwzwo",
-    "https://www.youtube.com/watch?v=0r2GNWvkd4U",
+    { title: "Iron Lotus (Key Ingredient ver.)", artist: "Mili",                         src: "assets/audio/iron-lotus.mp3" },
+    { title: "Between Two Worlds",                artist: "Realm of Darkness",             src: "assets/audio/realm-of-darkness.mp3" },
+    { title: "Vanquish",                          artist: "Darling in the FranXX OST",     src: "assets/audio/vanquish.mp3" },
+    { title: "CODE:002",                          artist: "Darling in the FranXX OST",     src: "assets/audio/code-002.mp3" },
+    { title: "Kokushibo Theme",                   artist: "Demon Slayer: Infinity Castle", src: "assets/audio/kokushibo.mp3" },
   ],
 
   // -- DESIGN: weapon stat sheet --
@@ -90,10 +92,17 @@ function render() {
   const hc = $("[data-field='holder-count']");
   if (hc) hc.textContent = String(aether.holders.length);
 
-  // design — pose music
-  const pm = $("#pose-music");
-  if (pm) pm.innerHTML = aether.poseMusic.map((u) =>
-    `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join("");
+  // design — pose music tracklist
+  const tl = $("#tracklist");
+  if (tl) tl.innerHTML = aether.poseMusic.map((t, i) => `
+    <li class="track" data-i="${i}">
+      <button class="track-btn" aria-label="Play ${esc(t.title)}">
+        <svg class="t-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="t-pause" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <span class="track-meta"><span class="track-title">${esc(t.title)}</span><span class="track-artist">${esc(t.artist || "")}</span></span>
+      <span class="track-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+    </li>`).join("");
 
   // design — stat sheet
   const ss = $("#statsheet");
@@ -169,6 +178,79 @@ function initSearch() {
     $$("#page-holders .band").forEach((band) => { band.style.display = ""; });
     if (empty) empty.hidden = !(q && shown === 0);
   });
+}
+
+/* ------------------------- music player ------------------------- */
+function initPlayer() {
+  const tracks = aether.poseMusic;
+  const tl = $("#tracklist");
+  if (!tl || !tracks.length) return;
+
+  const audio = new Audio();
+  audio.preload = "none";
+  let cur = -1;
+
+  const toggle = $("#playerToggle");
+  const titleEl = $("#playerTitle");
+  const seek = $("#playerSeek");
+  const curT = $("#playerCur");
+  const durT = $("#playerDur");
+  const fmt = (s) => (isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00");
+
+  function paintState() {
+    const playing = !audio.paused && cur >= 0;
+    $(".ic-play", toggle).hidden = playing;
+    $(".ic-pause", toggle).hidden = !playing;
+    $$("#tracklist .track").forEach((li) => {
+      const on = +li.dataset.i === cur;
+      li.classList.toggle("is-current", on);
+      li.classList.toggle("is-playing", on && playing);
+      $(".t-play", li).hidden = on && playing;
+      $(".t-pause", li).hidden = !(on && playing);
+    });
+  }
+
+  function load(i) {
+    cur = i;
+    audio.src = tracks[i].src;
+    titleEl.textContent = `${tracks[i].title}${tracks[i].artist ? " — " + tracks[i].artist : ""}`;
+    toggle.disabled = false; seek.disabled = false;
+  }
+  function play(i) {
+    if (i !== cur) load(i);
+    audio.play().catch(() => {});
+  }
+  function toggleTrack(i) {
+    if (i === cur && !audio.paused) audio.pause();
+    else play(i);
+  }
+
+  tl.addEventListener("click", (e) => {
+    const li = e.target.closest(".track");
+    if (li) toggleTrack(+li.dataset.i);
+  });
+  toggle.addEventListener("click", () => {
+    if (cur < 0) play(0);
+    else if (audio.paused) audio.play().catch(() => {});
+    else audio.pause();
+  });
+
+  audio.addEventListener("play", paintState);
+  audio.addEventListener("pause", paintState);
+  audio.addEventListener("ended", () => { if (cur < tracks.length - 1) play(cur + 1); else paintState(); });
+  audio.addEventListener("loadedmetadata", () => { durT.textContent = fmt(audio.duration); });
+  audio.addEventListener("timeupdate", () => {
+    curT.textContent = fmt(audio.currentTime);
+    if (audio.duration) seek.value = (audio.currentTime / audio.duration) * 100;
+  });
+  seek.addEventListener("input", () => { if (audio.duration) audio.currentTime = (seek.value / 100) * audio.duration; });
+
+  // pause audio if leaving the Design page
+  $$("[data-page]").forEach((el) => el.addEventListener("click", () => {
+    if (el.dataset.page !== "design" && !audio.paused) audio.pause();
+  }));
+
+  paintState();
 }
 
 /* ------------------------- lightbox ------------------------- */
@@ -294,6 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPages();
   initBar();
   initSearch();
+  initPlayer();
   initLightbox();
   initEmbers();
 });

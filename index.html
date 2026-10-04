@@ -117,14 +117,6 @@
           <figure class="media"><video src="assets/video/block.mp4" poster="assets/img/poster-block.jpg" autoplay loop muted playsinline preload="metadata"></video><figcaption>Block Animation</figcaption></figure>
         </div>
 
-        <div class="split">
-          <figure class="media media-wide"><button class="zoom" data-src="assets/img/parry.jpg"><img src="assets/img/parry.jpg" alt="Parry and perfect parry VFX" loading="lazy"/></button></figure>
-          <div class="split-text">
-            <h3 class="h-lux">Parry &amp; Perfect Parry VFX</h3>
-            <p class="muted">Left is regular parry, and right is perfect parry.</p>
-          </div>
-        </div>
-
         <h2 class="band">— References —</h2>
         <div class="media-2">
           <figure class="media"><button class="zoom" data-src="assets/img/ref1.jpg"><img src="assets/img/ref1.jpg" alt="Reference I" loading="lazy"/></button><figcaption>Reference I</figcaption></figure>
@@ -135,7 +127,20 @@
           <div class="split-text">
             <h3 class="h-lux">Pose Animation</h3>
             <p class="muted pm-label">Pose Musics</p>
-            <ul class="pose-music" id="pose-music"><!-- rendered --></ul>
+            <div class="player" id="player">
+              <div class="player-bar">
+                <button class="player-toggle" id="playerToggle" aria-label="Play / pause" disabled>
+                  <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+                </button>
+                <div class="player-now">
+                  <span class="player-title" id="playerTitle">Select a track</span>
+                  <div class="player-seek"><input type="range" id="playerSeek" min="0" max="100" value="0" step="0.1" aria-label="Seek" disabled /></div>
+                  <span class="player-time"><span id="playerCur">0:00</span> / <span id="playerDur">0:00</span></span>
+                </div>
+              </div>
+              <ul class="tracklist" id="tracklist"><!-- rendered --></ul>
+            </div>
           </div>
           <figure class="media media-wide"><video src="assets/video/pose.mp4" poster="assets/img/poster-pose.jpg" autoplay loop muted playsinline preload="metadata"></video></figure>
         </div>
