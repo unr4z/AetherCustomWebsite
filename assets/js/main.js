@@ -293,6 +293,24 @@ function initPlayer() {
   paintState();
 }
 
+/* ------------------------- erkling hover sound ------------------------- */
+function initErkling() {
+  const erk = $(".erkling");
+  if (!erk) return;
+  const clips = ["assets/sfx/erk-1.mp3", "assets/sfx/erk-2.mp3", "assets/sfx/erk-3.mp3"]
+    .map((src) => { const a = new Audio(src); a.preload = "none"; a.volume = 0.4; return a; });
+  let last = 0, playing = null;
+
+  erk.addEventListener("mouseenter", () => {
+    const now = Date.now();
+    if (now - last < 600) return;           // small cooldown so it doesn't spam
+    if (playing && !playing.paused) return;  // don't overlap
+    last = now;
+    playing = clips[Math.floor(Math.random() * clips.length)];
+    try { playing.currentTime = 0; playing.play().catch(() => {}); } catch (e) {}
+  });
+}
+
 /* ------------------------- lightbox ------------------------- */
 function initLightbox() {
   const lb = $("#lightbox"), img = $("#lbImg"), close = $("#lbClose");
@@ -495,6 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initSearch();
   initPlayer();
+  initErkling();
   initLightbox();
   initSfx();
   initEmbers();
