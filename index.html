@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AETHER — Kizuki Custom</title>
+  <meta name="description" content="Aether — a custom weapon of the Kizuki arsenal. Holders, development log, and reference archive." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- ambient ether background -->
+  <canvas id="ether" aria-hidden="true"></canvas>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Aether home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">AETHER</span>
+      <span class="brand-sub">Kizuki Custom</span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#archive" data-goto="holders">Holders</a>
+      <a href="#archive" data-goto="development">Development</a>
+      <a href="#archive" data-goto="reference">Reference</a>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">Custom Weapon · Game: Kizuki</p>
+      <h1 id="hero-title" class="wordmark">Aether</h1>
+      <p class="hero-tagline">
+        A blade cut from the quiet between stars — forged as a one-of-a-kind
+        custom within the <em>Kizuki</em> arsenal.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#archive" data-goto="holders">View holders</a>
+        <a class="btn btn-ghost" href="#archive" data-goto="reference">See the reference</a>
+      </div>
+
+      <dl class="stat-strip" aria-label="Weapon summary">
+        <div class="stat">
+          <dt>Tier</dt>
+          <dd data-field="tier">Custom · Exclusive</dd>
+        </div>
+        <div class="stat">
+          <dt>Element</dt>
+          <dd data-field="element">Aether / Light</dd>
+        </div>
+        <div class="stat">
+          <dt>Known holders</dt>
+          <dd data-field="holder-count">—</dd>
+        </div>
+        <div class="stat">
+          <dt>First forged</dt>
+          <dd data-field="forged">2025</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- archive with tabs -->
+    <section id="archive" class="archive" aria-labelledby="archive-title">
+      <div class="archive-head">
+        <h2 id="archive-title" class="section-title">The Archive</h2>
+        <p class="section-note">Everything recorded about Aether — its keepers, its making, and its lore.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Aether archive sections">
+        <button class="tab is-active" role="tab" id="tab-holders" aria-controls="panel-holders" aria-selected="true" data-tab="holders">
+          <span class="tab-index">01</span> Holders
+        </button>
+        <button class="tab" role="tab" id="tab-development" aria-controls="panel-development" aria-selected="false" tabindex="-1" data-tab="development">
+          <span class="tab-index">02</span> Development
+        </button>
+        <button class="tab" role="tab" id="tab-reference" aria-controls="panel-reference" aria-selected="false" tabindex="-1" data-tab="reference">
+          <span class="tab-index">03</span> Reference
+        </button>
+        <span class="tab-glow" aria-hidden="true"></span>
+      </div>
+
+      <!-- HOLDERS -->
+      <div class="panel is-active" role="tabpanel" id="panel-holders" aria-labelledby="tab-holders">
+        <div class="panel-intro">
+          <h3>Keepers of Aether</h3>
+          <p>The record of every player entrusted with the custom. Rank marks the order in which it was granted.</p>
+        </div>
+        <div class="holder-grid" id="holder-grid"><!-- rendered from data --></div>
+        <p class="legend">
+          <span class="dot dot-owner"></span> Owner / creator
+          <span class="dot dot-current"></span> Current holder
+          <span class="dot dot-past"></span> Past holder
+        </p>
+      </div>
+
+      <!-- DEVELOPMENT -->
+      <div class="panel" role="tabpanel" id="panel-development" aria-labelledby="tab-development" hidden>
+        <div class="panel-intro">
+          <h3>How Aether was made</h3>
+          <p>From first sketch to in-game release — the milestones behind the custom.</p>
+        </div>
+        <ol class="timeline" id="timeline"><!-- rendered from data --></ol>
+      </div>
+
+      <!-- REFERENCE -->
+      <div class="panel" role="tabpanel" id="panel-reference" aria-labelledby="tab-reference" hidden>
+        <div class="panel-intro">
+          <h3>Reference archive</h3>
+          <p>Design references, stat sheet, and the lore the blade draws from.</p>
+        </div>
+
+        <div class="ref-layout">
+          <div class="ref-gallery" id="ref-gallery"><!-- rendered from data --></div>
+
+          <aside class="ref-side">
+            <div class="statsheet">
+              <h4>Stat sheet</h4>
+              <table>
+                <tbody id="statsheet-body"><!-- rendered from data --></tbody>
+              </table>
+            </div>
+            <div class="lore">
+              <h4>Inspiration</h4>
+              <p id="lore-text">
+                Aether is named for the classical "fifth element" — the pure
+                upper air the heavens were said to breathe. The blade leans into
+                that idea: weightless light, a cold star-glow edge, motion that
+                reads more like drifting than swinging.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="foot-mark">AETHER</p>
+    <p class="foot-note">
+      A community showcase for a custom weapon in the Roblox game <strong>Kizuki</strong>.
+      Fan-made and unofficial — not affiliated with or endorsed by the game's developers or Roblox Corporation.
+    </p>
+    <p class="foot-edit">Edit the content in <code>assets/js/main.js</code> → the <code>aether</code> data object.</p>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
