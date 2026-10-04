@@ -271,7 +271,21 @@ main, .topbar, .site-footer { position: relative; z-index: 1; }
 }
 .media-showcase figcaption { font-size: 1.15rem; color: var(--soft); font-weight: 300; }
 
-.split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 34px; align-items: center; margin-top: 40px; }
+/* weapon icon showcase (transparent art on the void) */
+.icon-showcase { margin: 0 auto; max-width: 620px; text-align: center; }
+.icon-showcase .zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.icon-showcase img {
+  width: 100%; display: block;
+  filter: drop-shadow(0 0 30px rgba(168,119,255,.55)) drop-shadow(0 10px 30px rgba(0,0,0,.4));
+  transition: transform .4s ease;
+  animation: float 7s ease-in-out infinite;
+}
+.icon-showcase .zoom:hover img { transform: scale(1.03) rotate(-1deg); }
+.icon-showcase figcaption { margin-top: 10px; font-family: var(--serif); font-size: 1.2rem; color: var(--soft); }
+
+.split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 34px; align-items: stretch; margin-top: 40px; }
+.split .media-wide { display: flex; }
+.split .media-wide video { width: 100%; height: 100%; object-fit: cover; align-self: stretch; }
 .split-rev .split-text { order: -1; }
 .split-text h3 { margin-top: 0; }
 .pm-label { letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; margin-bottom: 12px; }
