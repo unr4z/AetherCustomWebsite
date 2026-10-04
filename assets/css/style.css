@@ -145,14 +145,14 @@ main, .topbar, .site-footer { position: relative; z-index: 1; }
   position: absolute;
   right: 18px;
   bottom: 70px;
-  width: 128px;
-  opacity: 0.045;
+  width: 92px;
+  opacity: 0.015;
   pointer-events: none;
   user-select: none;
   z-index: 0;
   filter: grayscale(0.2);
 }
-@media (max-width: 760px) { .erkling { width: 86px; right: 6px; } }
+@media (max-width: 760px) { .erkling { width: 64px; right: 6px; } }
 
 .hero-royal::before {
   background:
