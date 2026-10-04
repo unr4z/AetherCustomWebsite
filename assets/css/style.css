@@ -146,12 +146,14 @@ main, .topbar, .site-footer { position: relative; z-index: 1; }
   right: 18px;
   bottom: 70px;
   width: 92px;
-  opacity: 0.015;
-  pointer-events: none;
+  opacity: 0.03;              /* barely-there — you have to look */
+  pointer-events: auto;
   user-select: none;
   z-index: 0;
   filter: grayscale(0.2);
+  transition: opacity .5s ease;
 }
+.erkling:hover { opacity: 0.85; }   /* reveal when you find & hover it */
 @media (max-width: 760px) { .erkling { width: 64px; right: 6px; } }
 
 .hero-royal::before {
