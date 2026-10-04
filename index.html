@@ -3,141 +3,183 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AETHER — Kizuki Custom</title>
-  <meta name="description" content="Aether — a custom weapon of the Kizuki arsenal. Holders, development log, and reference archive." />
+  <title>Aether — Kizuki Custom</title>
+  <meta name="description" content="Aether — a custom weapon in Kizuki. Design, holders, and blacklist, forged from the essence of creation." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <!-- ambient ether background -->
-  <canvas id="ether" aria-hidden="true"></canvas>
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+  <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
 
-  <!-- top bar -->
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Aether home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">AETHER</span>
-      <span class="brand-sub">Kizuki Custom</span>
-    </a>
+  <!-- ===== top bar ===== -->
+  <header class="topbar" id="topbar">
+    <button class="brand" data-page="home" aria-label="Aether — home">Aether</button>
     <nav class="topnav" aria-label="Primary">
-      <a href="#archive" data-goto="holders">Holders</a>
-      <a href="#archive" data-goto="development">Development</a>
-      <a href="#archive" data-goto="reference">Reference</a>
+      <button class="navlink is-active" data-page="home">Home</button>
+      <button class="navlink" data-page="design">Design</button>
+      <button class="navlink" data-page="holders">Holder List</button>
+      <button class="navlink" data-page="blacklist">Blacklist</button>
     </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
-  <!-- hero -->
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <p class="eyebrow">Custom Weapon · Game: Kizuki</p>
-      <h1 id="hero-title" class="wordmark">Aether</h1>
-      <p class="hero-tagline">
-        A blade cut from the quiet between stars — forged as a one-of-a-kind
-        custom within the <em>Kizuki</em> arsenal.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#archive" data-goto="holders">View holders</a>
-        <a class="btn btn-ghost" href="#archive" data-goto="reference">See the reference</a>
+  <main>
+    <!-- ============ HOME ============ -->
+    <section class="page is-active" id="page-home">
+      <div class="hero" style="--bg:url('assets/img/hero-home.jpg')">
+        <div class="hero-inner">
+          <p class="hero-kicker">Kizuki · Custom Weapon</p>
+          <h1 class="hero-title">Aether</h1>
+          <p class="hero-sub">The blade that cuts through reality itself.</p>
+        </div>
+        <span class="scroll-cue" aria-hidden="true"></span>
       </div>
 
-      <dl class="stat-strip" aria-label="Weapon summary">
-        <div class="stat">
-          <dt>Tier</dt>
-          <dd data-field="tier">Custom · Exclusive</dd>
+      <div class="wrap">
+        <div class="about">
+          <figure class="about-logo">
+            <img src="assets/img/logo-crown.png" alt="Aether crown emblem" loading="lazy" />
+          </figure>
+          <div class="about-body">
+            <h2 class="h-lux">About <span class="lav">Aether</span></h2>
+            <p class="lead">
+              Born from the union of will, purpose, and pure <span class="lav">Aether</span>,
+              the sword reflects <span class="lav">Divine's</span> evolution beyond ordinary magic.
+              Unlike mana, <span class="lav">Aether</span> represents the <strong>essence of creation</strong>,
+              and through it <span class="lav">Divine</span> shaped a blade capable of cutting through
+              <span class="gold">reality</span> itself.
+            </p>
+
+            <dl class="stat-strip" aria-label="Weapon summary">
+              <div><dt>Tier</dt><dd>Exclusive Custom</dd></div>
+              <div><dt>Essence</dt><dd>Aether / Creation</dd></div>
+              <div><dt>Holders</dt><dd data-field="holder-count">—</dd></div>
+              <div><dt>Wielder</dt><dd>Divine</dd></div>
+            </dl>
+          </div>
         </div>
-        <div class="stat">
-          <dt>Element</dt>
-          <dd data-field="element">Aether / Light</dd>
+
+        <div class="portal-grid">
+          <button class="portal" data-page="design">
+            <span class="portal-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18v3h3l6.4-6.4a4 4 0 0 0 5.3-5.4l-2.6 2.6-2.1-.5-.5-2.1 2.6-2.6Z"/></svg>
+            </span>
+            <span class="portal-cta">Design</span>
+            <span class="portal-note">Check out Aether's design!</span>
+          </button>
+
+          <button class="portal" data-page="holders">
+            <span class="portal-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            </span>
+            <span class="portal-cta">Holder List</span>
+            <span class="portal-note">Our Holders list!</span>
+          </button>
+
+          <button class="portal portal-danger" data-page="blacklist">
+            <span class="portal-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg>
+            </span>
+            <span class="portal-cta">Blacklist</span>
+            <span class="portal-note">Our blacklists!</span>
+          </button>
         </div>
-        <div class="stat">
-          <dt>Known holders</dt>
-          <dd data-field="holder-count">—</dd>
-        </div>
-        <div class="stat">
-          <dt>First forged</dt>
-          <dd data-field="forged">2025</dd>
-        </div>
-      </dl>
+      </div>
     </section>
 
-    <!-- archive with tabs -->
-    <section id="archive" class="archive" aria-labelledby="archive-title">
-      <div class="archive-head">
-        <h2 id="archive-title" class="section-title">The Archive</h2>
-        <p class="section-note">Everything recorded about Aether — its keepers, its making, and its lore.</p>
+    <!-- ============ DESIGN ============ -->
+    <section class="page" id="page-design" hidden>
+      <div class="hero" style="--bg:url('assets/img/hero-design.jpg')">
+        <div class="hero-inner">
+          <p class="hero-kicker">Animations · VFX · References</p>
+          <h1 class="hero-title">Design</h1>
+        </div>
       </div>
 
-      <div class="tabs" role="tablist" aria-label="Aether archive sections">
-        <button class="tab is-active" role="tab" id="tab-holders" aria-controls="panel-holders" aria-selected="true" data-tab="holders">
-          <span class="tab-index">01</span> Holders
-        </button>
-        <button class="tab" role="tab" id="tab-development" aria-controls="panel-development" aria-selected="false" tabindex="-1" data-tab="development">
-          <span class="tab-index">02</span> Development
-        </button>
-        <button class="tab" role="tab" id="tab-reference" aria-controls="panel-reference" aria-selected="false" tabindex="-1" data-tab="reference">
-          <span class="tab-index">03</span> Reference
-        </button>
-        <span class="tab-glow" aria-hidden="true"></span>
+      <div class="wrap">
+        <h2 class="band">— Animations —</h2>
+        <div class="media-2">
+          <figure class="media"><button class="zoom" data-src="assets/img/idle.jpg"><img src="assets/img/idle.jpg" alt="Aether idle animation" loading="lazy"/></button><figcaption>Idle Animation</figcaption></figure>
+          <figure class="media"><button class="zoom" data-src="assets/img/block.jpg"><img src="assets/img/block.jpg" alt="Aether block animation" loading="lazy"/></button><figcaption>Block Animation</figcaption></figure>
+        </div>
+
+        <div class="split">
+          <figure class="media media-wide"><button class="zoom" data-src="assets/img/parry.jpg"><img src="assets/img/parry.jpg" alt="Parry and perfect parry VFX" loading="lazy"/></button></figure>
+          <div class="split-text">
+            <h3 class="h-lux">Parry &amp; Perfect Parry VFX</h3>
+            <p class="muted">Left is regular parry, and right is perfect parry.</p>
+          </div>
+        </div>
+
+        <h2 class="band">— References —</h2>
+        <div class="media-2">
+          <figure class="media"><button class="zoom" data-src="assets/img/ref1.jpg"><img src="assets/img/ref1.jpg" alt="Reference I" loading="lazy"/></button><figcaption>Reference I</figcaption></figure>
+          <figure class="media"><button class="zoom" data-src="assets/img/ref2.jpg"><img src="assets/img/ref2.jpg" alt="Reference II" loading="lazy"/></button><figcaption>Reference II</figcaption></figure>
+        </div>
+
+        <div class="split split-rev">
+          <div class="split-text">
+            <h3 class="h-lux">Pose Animation</h3>
+            <p class="muted pm-label">Pose Musics</p>
+            <ul class="pose-music" id="pose-music"><!-- rendered --></ul>
+          </div>
+          <figure class="media media-wide"><button class="zoom" data-src="assets/img/pose.jpg"><img src="assets/img/pose.jpg" alt="Pose animation" loading="lazy"/></button></figure>
+        </div>
+
+        <h2 class="band">— Stat Sheet —</h2>
+        <div class="statsheet-wrap">
+          <table class="statsheet"><tbody id="statsheet"><!-- rendered --></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOLDER LIST ============ -->
+    <section class="page" id="page-holders" hidden>
+      <div class="hero" style="--bg:url('assets/img/hero-holders.jpg')">
+        <div class="hero-inner">
+          <p class="hero-kicker">The record of Aether</p>
+          <h1 class="hero-title">Holder List</h1>
+        </div>
       </div>
 
-      <!-- HOLDERS -->
-      <div class="panel is-active" role="tabpanel" id="panel-holders" aria-labelledby="tab-holders">
-        <div class="panel-intro">
-          <h3>Keepers of Aether</h3>
-          <p>The record of every player entrusted with the custom. Rank marks the order in which it was granted.</p>
+      <div class="wrap">
+        <div class="list-tools">
+          <input type="search" id="holderSearch" class="search" placeholder="Search holders & contributors…" aria-label="Search holders" />
         </div>
-        <div class="holder-grid" id="holder-grid"><!-- rendered from data --></div>
-        <p class="legend">
-          <span class="dot dot-owner"></span> Owner / creator
-          <span class="dot dot-current"></span> Current holder
-          <span class="dot dot-past"></span> Past holder
-        </p>
+
+        <h2 class="band">-[ DEVELOPERS / CONTRIBUTORS ]-</h2>
+        <div class="people-grid" id="contributors"><!-- rendered --></div>
+
+        <h2 class="band">-[ HOLDERS ]-</h2>
+        <div class="people-grid" id="holders"><!-- rendered --></div>
+
+        <h2 class="band band-alt">-[ TEMPORARY HOLDERS ]-</h2>
+        <div class="people-grid" id="temp-holders"><!-- rendered --></div>
+
+        <p class="empty" id="search-empty" hidden>No one matches that search.</p>
+      </div>
+    </section>
+
+    <!-- ============ BLACKLIST ============ -->
+    <section class="page" id="page-blacklist" hidden>
+      <div class="hero hero-blacklist">
+        <div class="hero-inner">
+          <p class="hero-kicker">Barred from Aether</p>
+          <h1 class="hero-title">Blacklist</h1>
+        </div>
       </div>
 
-      <!-- DEVELOPMENT -->
-      <div class="panel" role="tabpanel" id="panel-development" aria-labelledby="tab-development" hidden>
-        <div class="panel-intro">
-          <h3>How Aether was made</h3>
-          <p>From first sketch to in-game release — the milestones behind the custom.</p>
-        </div>
-        <ol class="timeline" id="timeline"><!-- rendered from data --></ol>
-      </div>
-
-      <!-- REFERENCE -->
-      <div class="panel" role="tabpanel" id="panel-reference" aria-labelledby="tab-reference" hidden>
-        <div class="panel-intro">
-          <h3>Reference archive</h3>
-          <p>Design references, stat sheet, and the lore the blade draws from.</p>
-        </div>
-
-        <div class="ref-layout">
-          <div class="ref-gallery" id="ref-gallery"><!-- rendered from data --></div>
-
-          <aside class="ref-side">
-            <div class="statsheet">
-              <h4>Stat sheet</h4>
-              <table>
-                <tbody id="statsheet-body"><!-- rendered from data --></tbody>
-              </table>
-            </div>
-            <div class="lore">
-              <h4>Inspiration</h4>
-              <p id="lore-text">
-                Aether is named for the classical "fifth element" — the pure
-                upper air the heavens were said to breathe. The blade leans into
-                that idea: weightless light, a cold star-glow edge, motion that
-                reads more like drifting than swinging.
-              </p>
-            </div>
-          </aside>
-        </div>
+      <div class="wrap">
+        <p class="band-note">Players barred from holding or trading Aether. Add entries in <code>main.js</code>.</p>
+        <h2 class="band band-danger">-[ BLACKLISTED ]-</h2>
+        <div class="people-grid" id="blacklist"><!-- rendered --></div>
       </div>
     </section>
   </main>
@@ -146,10 +188,15 @@
     <p class="foot-mark">AETHER</p>
     <p class="foot-note">
       A community showcase for a custom weapon in the Roblox game <strong>Kizuki</strong>.
-      Fan-made and unofficial — not affiliated with or endorsed by the game's developers or Roblox Corporation.
+      Fan-made and unofficial — not affiliated with the game's developers or Roblox Corporation.
     </p>
-    <p class="foot-edit">Edit the content in <code>assets/js/main.js</code> → the <code>aether</code> data object.</p>
   </footer>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+    <img id="lbImg" alt="" />
+  </div>
 
   <script src="assets/js/main.js" defer></script>
 </body>
