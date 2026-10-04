@@ -141,6 +141,7 @@ function initPages() {
     nav.classList.remove("open");
     toggle.setAttribute("aria-expanded", "false");
     if (history.replaceState) history.replaceState(null, "", `#${name}`);
+    reReveal(name);
   }
 
   $$("[data-page]").forEach((el) => el.addEventListener("click", () => show(el.dataset.page)));
@@ -381,6 +382,33 @@ function initEmbers() {
   resize(); addEventListener("resize", resize); frame();
 }
 
+/* ------------------------- scroll / page reveal ------------------------- */
+let reReveal = () => {};
+function initReveal() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const sel = ".title-crest, .earn, .portal, .media, .statsheet-wrap, .player, .person";
+  const els = $$(sel);
+  els.forEach((el) => {
+    el.classList.add("reveal");
+    const sibs = Array.from(el.parentNode.children).filter((c) => c.matches(sel));
+    const i = Math.min(sibs.indexOf(el), 7);
+    el.style.setProperty("--d", (i * 0.06) + "s");
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+  els.forEach((el) => io.observe(el));
+
+  // re-arm a page's cards so they drop in again each time it's opened
+  reReveal = (page) => {
+    $$(`#page-${page} .reveal`).forEach((el) => { el.classList.remove("in"); io.observe(el); });
+  };
+}
+
 /* ------------------------- UI sound effects ------------------------- */
 const SFX = (() => {
   let ctx, master;
@@ -433,6 +461,7 @@ function initSfx() {
 /* ------------------------- boot ------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
   render();
+  initReveal();
   initPages();
   initBar();
   initSearch();
