@@ -142,6 +142,7 @@ function initPages() {
     toggle.setAttribute("aria-expanded", "false");
     if (history.replaceState) history.replaceState(null, "", `#${name}`);
     reReveal(name);
+    heroReset();
   }
 
   $$("[data-page]").forEach((el) => el.addEventListener("click", () => show(el.dataset.page)));
@@ -162,6 +163,33 @@ function initBar() {
   const onScroll = () => bar.classList.toggle("is-scrolled", window.scrollY > 20);
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+/* ------------------------- hero parallax (title lingers on scroll) ------------------------- */
+let heroReset = () => {};
+function initHeroParallax() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const page = $(".page.is-active");
+    if (!page) return;
+    const hero = page.querySelector(".hero");
+    const inner = page.querySelector(".hero-inner");
+    if (!hero || !inner) return;
+    const h = hero.offsetHeight || 1;
+    const y = Math.min(window.scrollY, h);        // only while the hero is in play
+    inner.style.transform = `translateY(${y * 0.5}px)`;   // title drifts down at half speed
+    inner.style.opacity = String(Math.max(0.3, 1 - (window.scrollY / (h * 1.5))));
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+
+  heroReset = () => requestAnimationFrame(update);
+  update();
 }
 
 /* ------------------------- holder search ------------------------- */
@@ -464,6 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initReveal();
   initPages();
   initBar();
+  initHeroParallax();
   initSearch();
   initPlayer();
   initLightbox();
